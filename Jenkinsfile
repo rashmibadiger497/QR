@@ -3,12 +3,6 @@ pipeline {
 
     stages {
 
-        stage('Clone Code') {
-            steps {
-                git 'https://github.com/rashmibadiger497/QR.git'
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 script {
@@ -20,8 +14,8 @@ pipeline {
         stage('Run Container') {
             steps {
                 script {
-                    sh 'docker rm -f qr-container || true'
-                    sh 'docker run -d -p 3000:3000 --name qr-container qr-app'
+                    bat 'docker rm -f qr-container || exit 0'
+                    bat 'docker run -d -p 3005:3000 --name qr-container qr-app'
                 }
             }
         }
